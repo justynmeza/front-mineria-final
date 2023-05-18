@@ -1,0 +1,12 @@
+<div>
+  <p-sidebar [(visible)]="sidebarVisible">
+    <h3>Menu</h3>
+    <div class="card flex justify-content-center">
+      <p-menu [model]="items"></p-menu>
+    </div>
+  </p-sidebar>
+  <div class="container-sidebar">
+    <p-button (click)="sidebarVisible = true" styleClass="p-button-rounded p-button-danger p-button-text p-button-raised" icon="pi pi-bars"></p-button>
+    <h1 class="title-h1">video Game Sales</h1>
+  </div>
+</div>
