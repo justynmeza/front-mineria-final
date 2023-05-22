@@ -64,7 +64,10 @@ import { LoginComponent } from './views/login/login.component';
     CarouselModule,
     ConfirmDialogModule
   ],
-  providers: [],
+  providers: [
+    MessageService,
+    ConfirmationService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

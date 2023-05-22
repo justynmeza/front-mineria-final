@@ -4,6 +4,8 @@
     </div>
 </div>
 
+<p-toast position="center" [preventOpenDuplicates]="true"></p-toast>
+
 <div class="fondo">
     <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
         <div class="container-fluid">
@@ -33,6 +35,10 @@
                 <!-- Boton -->
                 <div class="d-grid gap-2 mb-3">
                     <button pButton pRipple label="Ingresar" type="submit" [disabled]="formLogin.invalid" icon="pi pi-check" class="p-button-info"></button>
+                </div>
+
+                <div class="mb-3">
+                    <button pButton pRipple type="button" icon="pi pi-users" label="Entrar como invitado" class="p-button-danger p-button-text" (click)="invitado()"></button>
                 </div>
             </div>
         </div>

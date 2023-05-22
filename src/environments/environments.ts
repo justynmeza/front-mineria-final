@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //api: 'https://api-mineria-final-m0y2.onrender.com/'
-  api: 'http://127.0.0.1:5000/'
+  api: 'https://api-mineria-final-m0y2.onrender.com/'
+  // api: 'http://127.0.0.1:5000/'
 };
 
 /*
