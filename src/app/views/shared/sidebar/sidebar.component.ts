@@ -34,8 +34,8 @@ export class SidebarComponent implements OnInit {
       label: 'File',
       items: [
         { label: 'Dashboard', icon: 'pi pi-home', routerLink: '/dashboard' },
-        { label: 'Games', icon: 'pi pi-download', routerLink: ['/games'] },
-        { label: 'Administrator', icon: 'pi pi-download', routerLink: ['/administrator']},
+        { label: 'Games', icon: 'pi pi-th-large', routerLink: ['/games'] },
+        { label: 'Administrator', icon: 'pi pi-folder', routerLink: ['/administrator']},
         //{label: 'Recent Files', icon: 'pi pi-download', routerLink: ['/pagename'], queryParams: {'recent': 'true'}}
       ]
     }];

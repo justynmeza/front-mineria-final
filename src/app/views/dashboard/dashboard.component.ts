@@ -12,23 +12,13 @@ export class DashboardComponent {
   highQualification: number = 0;
   total: number = 0;
 
-  sellBrandsTitle: string[] = [];
-  sellBrandsValue: number[] = [];
+  bestFiveTitle: string[] = [];
+  bestFiveValue: number[] = [];
 
-  brands: string[] = [];
-  brandsFill: number[] = [];
+  bestContinentalTitle: string[] = [];
+  bestContinentalValue: Array<any> = [];
 
-  bestBrandsPriceTitle: string[] = [];
-  bestBrandsPriceValue: Array<any> = [];
-
-  bestBrandsTitle: string[] = [];
-  bestBrandsValues: number[] = [];
-
-  priceSizeTitle: string[] = [];
-  priceSizeValue: any[] = [];
-
-  updateRateTitle: string[] = [];
-  updateRateValue: string[] = [];
+  bestGameWorld:any[] = [];
 
   lineData: unknown;
   lineOptions: unknown;
@@ -53,88 +43,30 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.getBestFive();
-    this.getBestNA();
-    this.getBestEUR();
-    this.getSBestJP();
-    this.getBestROW();
-    this.getBestGlobal();
     setTimeout(() => {
-      this.initLineChart();
+      this.getBestNA();
+    }, 1);
+    setTimeout(() => {
+      this.getBestEUR();
+    }, 1);
+    setTimeout(() => {
+      this.getSBestJP();
+    }, 1);
+    setTimeout(() => {
+      this.getBestROW();
+    }, 1);
+    setTimeout(() => {
+      this.getBestGlobal();
+    }, 1);
+    
+    setTimeout(() => {
       this.initBarChart();
       this.initBar2Chart();
       this.initPieChart();
-      this.initDoughnutChart();
-      this.initPolarChart();
     }, 1000);
   }
 
   //#region Inicializar las graficas
-  initLineChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    this.lineData = {
-      labels: this.bestBrandsPriceTitle,
-      datasets: [
-        {
-          label: this.bestBrandsPriceTitle[0],
-          data: this.bestBrandsPriceValue[0],
-          fill: false,
-          backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
-          borderColor: documentStyle.getPropertyValue('--bluegray-700'),
-          tension: .4
-        },
-        {
-          label: this.bestBrandsPriceTitle[1],
-          data: this.bestBrandsPriceValue[1],
-          fill: false,
-          backgroundColor: documentStyle.getPropertyValue('--green-600'),
-          borderColor: documentStyle.getPropertyValue('--green-600'),
-          tension: .4
-        },
-        {
-          label: this.bestBrandsPriceTitle[2],
-          data: this.bestBrandsPriceValue[2],
-          fill: false,
-          backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
-          borderColor: documentStyle.getPropertyValue('--yellow-500'),
-          tension: .4
-        }
-      ]
-    };
-
-    this.lineOptions = {
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
-          }
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false
-          }
-        },
-        y: {
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false
-          }
-        }
-      }
-    };
-  }
 
   initBarChart() {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -143,11 +75,11 @@ export class DashboardComponent {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     this.barData = {
-      labels: this.sellBrandsTitle,
+      labels: this.bestFiveTitle,
       datasets: [
         {
           label: 'Ventas',
-          data: this.sellBrandsValue,
+          data: this.bestFiveValue,
           backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
           borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
           borderWidth: 1
@@ -192,10 +124,10 @@ export class DashboardComponent {
     const textColor = documentStyle.getPropertyValue('--text-color');
 
     this.pieData = {
-      labels: this.bestBrandsTitle,
+      labels: this.bestFiveTitle,
       datasets: [
         {
-          data: this.bestBrandsValues,
+          data: this.bestFiveValue,
           backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
           hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
         }
@@ -214,34 +146,6 @@ export class DashboardComponent {
     };
   }
 
-  initDoughnutChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-
-    this.doughnutData = {
-      labels: this.sellBrandsTitle,
-      datasets: [
-        {
-          data: this.sellBrandsValue,
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
-        }
-      ]
-    };
-
-
-    this.doughnutOptions = {
-      cutout: '60%',
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
-          }
-        }
-      }
-    };
-  }
-
   initBar2Chart() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -249,11 +153,11 @@ export class DashboardComponent {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     this.barData2 = {
-      labels: this.priceSizeTitle,
+      labels: this.bestContinentalTitle,
       datasets: [
         {
           label: 'Ventas',
-          data: this.priceSizeValue,
+          data: this.bestContinentalValue,
           backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
           borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
           borderWidth: 1
@@ -292,54 +196,16 @@ export class DashboardComponent {
       }
     };
   }
-
-  initPolarChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    this.polarData = {
-      datasets: [
-        {
-          data: this.updateRateValue,
-          backgroundColor: [
-            documentStyle.getPropertyValue('--red-500'),
-            documentStyle.getPropertyValue('--green-500'),
-            documentStyle.getPropertyValue('--yellow-500'),
-            documentStyle.getPropertyValue('--bluegray-500'),
-            documentStyle.getPropertyValue('--blue-500')
-          ],
-          label: 'Tasa de Refrezco'
-        }
-      ],
-      labels: this.updateRateTitle
-    };
-
-    this.polarOptions = {
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
-          }
-        }
-      },
-      scales: {
-        r: {
-          grid: {
-            color: surfaceBorder
-          }
-        }
-      }
-    };
-  }
   //#endregion
 
   //#region Consulta de datos
   getBestFive() {
     this.gameService.getBestFive().subscribe({
       next: (res: any) => {
-        console.log(res)
-        //this.selling = res[0].brand;
+        res.forEach((element: { game: string; global: number }) => {
+          this.bestFiveTitle.push(element.game);
+          this.bestFiveValue.push(element.global);
+        });
       },
       error: (err: any) => console.log(err)
     });
@@ -349,7 +215,10 @@ export class DashboardComponent {
     this.gameService.getBestNA().subscribe({
       next: (res: any) => {
         console.log(res);
-        //this.highQualification = res[0].qualification;
+        res.forEach((element: { game: string; global: number }) => {
+          this.bestContinentalTitle.push(element.game);
+          this.bestContinentalValue.push(element.global);
+        });
       },
       error: (err: any) => console.log(err)
     });
@@ -359,7 +228,10 @@ export class DashboardComponent {
     this.gameService.getBestEUR().subscribe({
       next: (res: any) => {
         console.log(res);
-        //this.total = res[0].sum_price;
+        res.forEach((element: { game: string; global: number }) => {
+          this.bestContinentalTitle.push(element.game);
+          this.bestContinentalValue.push(element.global);
+        });
       },
       error: (err: any) => console.log(err)
     });
@@ -369,10 +241,10 @@ export class DashboardComponent {
     this.gameService.getBestJP().subscribe({
       next: (res: any) => {
         console.log(res);
-        /* res.forEach((element: { brand: string; count: number }) => {
-          this.sellBrandsTitle.push(element.brand);
-          this.sellBrandsValue.push(element.count);
-        }); */
+        res.forEach((element: { game: string; global: number }) => {
+          this.bestContinentalTitle.push(element.game);
+          this.bestContinentalValue.push(element.global);
+        });
       },
       error: (err: any) => console.log(err)
     });
@@ -382,9 +254,10 @@ export class DashboardComponent {
     this.gameService.getBestROW().subscribe({
       next: (res: any) => {
         console.log(res);
-        /* res.forEach((element: { brand: string; }) => {
-          this.brands.push(element.brand)
-        }); */
+        res.forEach((element: { game: string; global: number }) => {
+          this.bestContinentalTitle.push(element.game);
+          this.bestContinentalValue.push(element.global);
+        });
       },
       error: (err: any) => console.log(err)
     });
@@ -394,10 +267,10 @@ export class DashboardComponent {
     this.gameService.getBestGlobal().subscribe({
       next: (res: any) => {
         console.log(res);
-        /* res.forEach((element: { brand: string; count: number }) => {
-          this.bestBrandsTitle.push(element.brand);
-          this.bestBrandsValues.push(element.count);
-        }); */
+        res.forEach((element: { game: string; global: number }) => {
+          this.bestGameWorld.push(element.game);
+          this.bestGameWorld.push(element.global);
+        });
       },
       error: (err: any) => console.log(err)
     });
