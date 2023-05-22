@@ -28,6 +28,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CarouselModule } from 'primeng/carousel';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FooterComponent } from './views/shared/footer/footer.component';
+import { LoginComponent } from './views/login/login.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { FooterComponent } from './views/shared/footer/footer.component';
     SidebarComponent,
     GamesComponent,
     AdministratorComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
