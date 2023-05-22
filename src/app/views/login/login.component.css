@@ -22,6 +22,10 @@
     box-shadow: 1px 18px 60px -19px rgba(0,0,0);
 }
 
+p-password ::ng-deep div, p-password ::ng-deep div ::ng-deep input {
+    width: 100%;
+}
+
 .container-fluid{
     display: flex;
     align-items: center;  

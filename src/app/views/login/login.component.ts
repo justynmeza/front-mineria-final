@@ -1,9 +1,12 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SESSION_STORAGE, WebStorageService } from 'ngx-webstorage-service';
-import { MessageService } from 'primeng/api';
 import { UsersService } from 'src/app/services/users.service';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-login',
@@ -19,8 +22,7 @@ export class LoginComponent {
   constructor(private frmBuilder : FormBuilder,
                 private router : Router,
                   @Inject(SESSION_STORAGE) private storage: WebStorageService,
-                    private usuarioService : UsersService,
-                      private messageService: MessageService,) {
+                    private usuarioService : UsersService,) {
     this.formLogin = this.frmBuilder.group({
       User : [null, Validators.required],
       Pass : [null, Validators.required],

@@ -1,5 +1,3 @@
-<p-toast position="center" [preventOpenDuplicates]="true"></p-toast>
-
 <div class="d-flex justify-content-center overlay" *ngIf="cargando">
     <div style="margin: auto;">
       <p-progressSpinner></p-progressSpinner>
@@ -26,14 +24,10 @@
 
                 <!-- Pass -->
                 <div class="col-md mb">
-                    <div class="p-inputgroup">
-                      <span class="p-float-label">
-                        <input formControlName="Pass" type="password" placeholder="Contraseña" id="pass" pInputText required>
-                      </span>
-                      <ng-container *ngIf="mostrarPass == true then noMostrar; else mostrar"></ng-container>
-                      <ng-template #mostrar><span class="input-group-text cursor" (click)="mostrarPassword()"><i class="pi pi-eye"></i></span></ng-template>
-                      <ng-template #noMostrar><span class="input-group-text cursor" (click)="mostrarPassword()"><i class="pi pi-eye-slash"></i></span></ng-template>
-                    </div>
+                    <span class="p-float-label">
+                      <p-password formControlName="Pass" [feedback]="false" id="pass" [toggleMask]="true"></p-password>
+                      <label for="pass">Contraseña</label>
+                    </span>
                 </div>
 
                 <!-- Boton -->
