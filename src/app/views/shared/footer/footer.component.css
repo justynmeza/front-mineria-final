@@ -1,0 +1,14 @@
+.footer {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #ffe9e9;
+}
+
+.maded {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+}

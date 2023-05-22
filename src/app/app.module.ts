@@ -23,13 +23,21 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { SidebarComponent } from './views/shared/sidebar/sidebar.component';
 import { MenuModule } from 'primeng/menu';
 import { GamesComponent } from './views/games/games.component';
+import { AdministratorComponent } from './views/administrator/administrator.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { CarouselModule } from 'primeng/carousel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FooterComponent } from './views/shared/footer/footer.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     SidebarComponent,
-    GamesComponent
+    GamesComponent,
+    AdministratorComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +57,10 @@ import { GamesComponent } from './views/games/games.component';
     DialogModule,
     ChartModule,
     InputNumberModule,
-    MenuModule
+    MenuModule,
+    DropdownModule,
+    CarouselModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,156 @@
+<div class="card container-table-curd">
+  <p-toast></p-toast>
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button style="margin-right: 0.5rem;" pButton pRipple label="New" icon="pi pi-plus" class="p-button-success" (click)="openNew()"></button>
+      <!-- <button pButton pRipple [label]="'Delete'" icon="pi pi-trash" class="p-button-danger"
+        (click)="deleteSelectedProducts()" [disabled]="!selectedGame || !selectedGame.length"></button> -->
+    </ng-template>
+
+    <!-- <ng-template pTemplate="right">
+          <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+          <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+      </ng-template> -->
+  </p-toolbar>
+
+  <p-table #dt [value]="games" [rows]="5" [paginator]="true"
+    [globalFilterFields]="['console', 'publisher', 'game', 'year', 'gender']"
+    [tableStyle]="{ 'max-width': '90vw', 'max-heigth' : '90vh' }" [(selection)]="selectedGame" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Mostranto {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Games</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="filterTable($event, 'contains')" placeholder="Search..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <!-- <th style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th> -->
+        <th pSortableColumn="console"><div class="table-header-width">Console <p-sortIcon field="console"></p-sortIcon></div> </th>
+        <th pSortableColumn="publisher"><div class="table-header-width">Publisher <p-sortIcon field="publisher"></p-sortIcon></div></th>
+        <th pSortableColumn="game"><div class="table-header-width">Game <p-sortIcon field="game"></p-sortIcon></div></th>
+        <th pSortableColumn="year"><div class="table-header-width"></div>Year <p-sortIcon field="year"></p-sortIcon></th>
+        <th pSortableColumn="gender"><div class="table-header-width">Gender <p-sortIcon field="gender"></p-sortIcon></div></th>
+        <th pSortableColumn="north_america"><div class="table-header-width">North America <p-sortIcon field="north_america"></p-sortIcon></div></th>
+        <th pSortableColumn="europe"><div class="table-header-width">Europe <p-sortIcon field="europe"></p-sortIcon></div></th>
+        <th pSortableColumn="japan"><div class="table-header-width">Japan <p-sortIcon field="japan"></p-sortIcon></div></th>
+        <th pSortableColumn="rest_of_world"><div class="table-header-width">Rest Of World <p-sortIcon field="rest_of_world"></p-sortIcon></div></th>
+        <th pSortableColumn="rest_of_world"><div class="table-header-width">Global <p-sortIcon field="global"></p-sortIcon></div></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-gameS>
+      <tr>
+        <!-- <td>
+          <p-tableCheckbox [value]="gameS"></p-tableCheckbox>
+        </td> -->
+        <td>{{ gameS.console }}</td>
+        <td>{{ gameS.publisher }}</td>
+        <td>{{ gameS.game }}</td>
+        <td>{{ gameS.year }}</td>
+        <td>{{ gameS.gender }}</td>
+        <td>{{ gameS.north_america }}</td>
+        <td>{{ gameS.europe }}</td>
+        <td>{{ gameS.japan }}</td>
+        <td>{{ gameS.rest_of_world }}</td>
+        <td>{{ gameS.global }}</td>
+        <td class="actions">
+          <button style="margin-right: 0.5rem;" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+            (click)="editProduct(gameS)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+            (click)="deleteProduct(gameS)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">In total there are {{ games ? games.length : 0 }}
+        products.</div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="gameDialog" [style]="{ width: '450px' }" header="Gameetails" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+    <div class="field">
+      <label for="console">Console</label>
+      <p-dropdown appendTo="body" [options]="consoles" [(ngModel)]="gameO.console" placeholder="Seleccione una consola"
+        [editable]="true" optionLabel="title" optionValue="value" ></p-dropdown>
+      <small class="p-error" *ngIf="submitted && !gameO.console">Console is required.</small>
+    </div>
+
+    <div class="field">
+      <label for="publisherGame">Publisher</label>
+      <input type="text" pInputText id="publisherGame" [(ngModel)]="gameO.publisher" required />
+      <small class="p-error" *ngIf="submitted && !gameO.game">Publisher is required.</small>
+    </div>
+
+    <div class="field">
+      <label for="Game">Game</label>
+      <input type="text" pInputText id="Game" [(ngModel)]="gameO.game" required />
+      <small class="p-error" *ngIf="submitted && !gameO.game">Game is required.</small>
+    </div>
+
+    <div class="field">
+      <label for="yearGame">Year</label>
+      <p-dropdown class="drpd-width" id="yearGame" appendTo="body" [options]="years" [(ngModel)]="gameO.year"
+        placeholder="Seleccione un año" [editable]="true" optionLabel="title" optionValue="value"></p-dropdown>
+      <small class="p-error" *ngIf="submitted && !gameO.year">Year is required.</small>
+    </div>
+
+    <div class="field">
+      <label for="console">Genre</label>
+      <p-dropdown class="drpd-width" appendTo="body" [options]="genders" [(ngModel)]="gameO.gender"
+        placeholder="Seleccione un genero" [editable]="true" optionLabel="title" optionValue="value"></p-dropdown>
+      <small class="p-error" *ngIf="submitted && !gameO.gender">Gender is required.</small>
+    </div>
+
+    <div class="grid">
+      <div class="field col" style="margin-right: 5px;">
+        <label for="northAmericaGame">North America</label>
+        <p-inputNumber mode="decimal" [maxFractionDigits]="2" id="northAmericaGame" [(ngModel)]="gameO.north_america"></p-inputNumber>
+        <small class="p-error" *ngIf="submitted && !gameO.north_america">North America is required.</small>
+      </div>
+      <div class="field col" style="margin-left: 5px;">
+        <label for="europeGame">Europe</label>
+        <p-inputNumber mode="decimal" [maxFractionDigits]="2" id="europeGame" [(ngModel)]="gameO.europe"></p-inputNumber>
+        <small class="p-error" *ngIf="submitted && !gameO.europe">Europe is required.</small>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="field col" style="margin-right: 5px;">
+        <label for="japanGame">Japan</label>
+        <p-inputNumber mode="decimal" [maxFractionDigits]="2" id="japanGame " [(ngModel)]="gameO.japan"></p-inputNumber>
+        <small class="p-error" *ngIf="submitted && !gameO.japan">Japan is required.</small>
+      </div>
+      <div class="field col" style="margin-left: 5px;">
+        <label for="restofWorldGame">Rest of World</label>
+        <p-inputNumber mode="decimal" [maxFractionDigits]="2" id="restofWorldGame" [(ngModel)]="gameO.rest_of_world"></p-inputNumber>
+        <small class="p-error" *ngIf="submitted && !gameO.rest_of_world">Rest of World is required.</small>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="field col" style="margin-right: 5px;">
+        <label for="globalGame">Global</label>
+        <p-inputNumber mode="decimal" [maxFractionDigits]="2" id="globalGame " [(ngModel)]="gameO.global"></p-inputNumber>
+        <small class="p-error" *ngIf="submitted && !gameO.global">Global is required.</small>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

@@ -1,0 +1,19 @@
+.container-table-curd{
+  margin: 3rem 3rem;
+}
+
+.grid{
+  display: flex;
+}
+
+.table-header-width{
+  min-width: 10rem;
+}
+
+.col{
+  width: 50%;
+}
+
+.actions{
+  display: flex;
+}

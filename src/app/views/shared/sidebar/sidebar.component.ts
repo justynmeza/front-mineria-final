@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit {
       }
 
       if (event instanceof NavigationError) {
-        console.error(event.error);
+        //console.error(event.error);
       }
 
       if (event instanceof NavigationEnd) {
@@ -34,7 +34,8 @@ export class SidebarComponent implements OnInit {
       label: 'File',
       items: [
         { label: 'Dashboard', icon: 'pi pi-home', routerLink: '/dashboard' },
-        {label: 'Open', icon: 'pi pi-download', routerLink: ['/games']},
+        { label: 'Games', icon: 'pi pi-download', routerLink: ['/games'] },
+        { label: 'Administrator', icon: 'pi pi-download', routerLink: ['/administrator']},
         //{label: 'Recent Files', icon: 'pi pi-download', routerLink: ['/pagename'], queryParams: {'recent': 'true'}}
       ]
     }];
