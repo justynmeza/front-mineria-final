@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { SESSION_STORAGE, WebStorageService } from 'ngx-webstorage-service';
 import { GamesService } from 'src/app/services/games.service';
 
 @Component({
@@ -38,7 +39,10 @@ export class DashboardComponent {
   polarData: unknown;
   polarOptions: unknown;
 
-  constructor(private gameService: GamesService) {
+  invitado : boolean | undefined;
+
+  constructor(private gameService: GamesService,
+                @Inject(SESSION_STORAGE) private storage: WebStorageService,) {
   }
 
   ngOnInit() {

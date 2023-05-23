@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router, Event } from '@angular/router';
+import { SESSION_STORAGE, WebStorageService } from 'ngx-webstorage-service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,9 +12,9 @@ export class SidebarComponent implements OnInit {
   sidebarVisible: boolean = false;
   items: any = [];
   closed: boolean = false;
+  invitado : boolean | undefined;
 
-
-  constructor(private router: Router) {
+  constructor(private router: Router, @Inject(SESSION_STORAGE) private storage: WebStorageService,) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         //console.log('a')
@@ -30,6 +31,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.storage.get('User') != undefined ? this.invitado = true : this.invitado = false;
     this.items = [{
       label: 'File',
       items: [
